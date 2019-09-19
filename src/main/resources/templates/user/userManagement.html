@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>用户管理</title>
+</head>
+<body style="background: #cccccc">
+<center style="color: #af0000"> 欢迎来到户管理</center>
+<center>
+    <table cellpadding="0px" cellspacing="0px" width="600px" border="1px">
+        <thead>
+        <tr>
+            <td>序号</td>
+            <td>账号</td>
+            <td>昵称</td>
+            <td>管理</td>
+        </tr>
+        </thead>
+        <tbody id="userListt">
+
+        </tbody>
+        <tfoot>
+        <tr>
+            <td>序号</td>
+            <td>账号</td>
+            <td>昵称</td>
+            <td>管理</td>
+        </tr>
+        </tfoot>
+    </table>
+</center>
+</body>
+
+<script type="text/javascript" src="/jquery/jquery-3.4.1.min.js"></script>
+
+<script>
+
+    $(function () {
+
+        getUSerList();
+    });
+
+    function getUSerList() {
+
+        $.ajax({
+            url: "/getUserList",
+            type: "post",
+            success: function (data) {
+
+                if (data.code == "ok") {
+
+                    var value = data.date;
+
+                    console.log(value);
+                    for (var i = 0; i < value.length; i++) {
+                        var valueElement = value[i];
+                        var id = i + 1;
+                        $("#userListt").append(
+                            "<tr>\n" +
+                            " <td>"+id+"</td>\n" +
+                            " <td>"+valueElement.userName+"</td>\n" +
+                            " <td>"+valueElement.realName+"</td>\n" +
+                            " <td><button>修改</button><button>重置</button>" +
+                            "<button>锁定</button><button>解锁</button></td>\n" +
+                            "</tr>")
+                    }
+                } else {
+                    alert(data.message);
+                }
+            },
+        });
+    }
+</script>
+</html>

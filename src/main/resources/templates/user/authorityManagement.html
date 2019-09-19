@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>权限管理</title>
+</head>
+<link rel="stylesheet" href="/ztree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+
+<body>
+<br/>
+
+<div class="zTreeDemoBackground left">
+    <ul id="treeDemo" class="ztree"></ul>
+</div>
+
+</body>
+
+<script type="text/javascript" src="/jquery/jquery-3.4.1.min.js"></script>
+
+<script type="text/javascript" src="/ztree/js/jquery.ztree.core.min.js"></script>
+
+<SCRIPT type="text/javascript">
+
+    $(function() {// 初始化内容
+        //初始化树
+        initZtree();
+    });
+
+    var setting = {
+        data: {
+            simpleData: {
+                enable: true,
+                idKey: "id",
+                pIdKey: "pid",
+            },
+            key: {
+                name: "menuName",
+            }
+        },
+    };
+
+    function initZtree() {
+
+        $.ajax({
+            url: "/showIndex",
+            type: "post",
+            success: function (data) {
+                if (data.code == "ok") {
+
+                    var zNodes = data.date;
+
+                    console.log(zNodes);
+
+                    $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+
+                } else {
+                    alert(data.message);
+                }
+            }
+        });
+    }
+</SCRIPT>
+
+</html>

@@ -1,4 +1,4 @@
-package com.zxg.plustest.util;
+package com.zxg.plustest.common.util;
 
 import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
